@@ -10,8 +10,9 @@ namespace WebApplication4.Controllers
 {
     public class ProductController : ApiController
     {
-        // 不加过滤器的用法 
-        public IHttpActionResult Post([FromBody]ProductViewModel model)
+        // 不加过滤器的用法  不需要再全局Global中注册 需要在WebAPIConfig中加并添加注解 对所有方法接口奏效
+        //MVC中不能这么用 必须全局注册下 并加注解    FluentValidationModelValidatorProvider.Configure();
+        public IHttpActionResult Post([FromBody]CustomProduct model)
         {
             if (!ModelState.IsValid)
             {

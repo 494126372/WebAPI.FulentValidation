@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -16,12 +17,14 @@ namespace WebApplication4.Controllers
 
             return View();
         }
-        [HttpPost]  // 不加过滤器的用法 
+        [HttpPost]  // 不加过滤器的用法  
         //[ValidateAntiForgeryToken]
 
-        [ValidateModelStateFilter]   // // 加过滤器的用法  
-        public ActionResult Create([System.Web.Http.FromBody]ProductViewModel product)
+        [ValidateModelStateFilter]   // // 加过滤器的用法  必须在Global中注册
+        public ActionResult Create([System.Web.Http.FromBody]CustomProduct product)
         {
+            //CustomerValidator validator = new CustomerValidator();
+            //ValidationResult results = validator.Validate(customer);
             if (!ModelState.IsValid)
             {
                

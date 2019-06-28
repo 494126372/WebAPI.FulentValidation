@@ -20,15 +20,15 @@ namespace WebApplication4
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
-         
+
             //安装完成后,您需要在应用程序的启动例程中配置
             //如果要让这个过滤器对所有的Controller都起作用，请在WebApiConfig中注册全局过滤
             //config.Filters.Add(new ValidateModelStateFilter());
 
-            // Web API routes
+            // Web API routes WebApi 下载下面的 
+            //Install - Package FluentValidation.WebApi
 
-
-
+            //这个是WEBAPI加的地方 添加之后全局拦截
             FluentValidationModelValidatorProvider.Configure(config);
 
         }

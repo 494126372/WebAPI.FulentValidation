@@ -9,7 +9,7 @@ using System.Web.Http.Filters;
 
 namespace WebApplication4.Validators
 {
-    // 加过滤器的用法
+    // 加过滤器的用法  此类不需要加 如果WEBAPI的话全局就会有效 这样写是为了新增和修改有效在Action上
     public class ValidateModelStateFilter : ActionFilterAttribute
     {
         //public override void OnActionExecuting(HttpActionContext actionContext)

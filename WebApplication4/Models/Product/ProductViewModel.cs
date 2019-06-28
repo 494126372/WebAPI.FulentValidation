@@ -15,11 +15,13 @@ namespace WebApplication4.Models.Product
         public string Name { get; set; }
         public string Code { get; set; }
         public decimal Price { get; set; }
-
+    }
+    public class CustomProduct: ProductViewModel  //一般不在原型修改 直接继承
+    {
         public string Tel { get; set; }
     }
 
-    public class ProductValidator : BaseValidator<ProductViewModel>
+    public class ProductValidator : BaseValidator<CustomProduct>
     {
         // 校验规则如下
         public ProductValidator()
