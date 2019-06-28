@@ -46,13 +46,7 @@ namespace WebApplication4.Validators
                 response.Content = new StringContent(string.Join("\n", errormsg.ToArray()));
                 response.StatusCode = HttpStatusCode.BadRequest;
                 throw new System.Web.Http.HttpResponseException(response);
-                
-
             }
-
-
-
-
         }
        
     }

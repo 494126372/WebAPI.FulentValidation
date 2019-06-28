@@ -171,6 +171,7 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Views\Home\Create.cshtml" />
+    <Content Include="ReadMe.cmd" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
