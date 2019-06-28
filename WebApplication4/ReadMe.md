@@ -1,22 +1,29 @@
-﻿
+
+
 ## Mvc 5 的校验： 参考地址 https://fluentvalidation.net/mvc5
 
 +  配置安装Nuget命令行安装 
 +  Install-Package FluentValidation.Mvc5 
-+ WebAPI 得安装 Install-Package FluentValidation.WebApi
++  WebAPI 得安装 Install-Package FluentValidation.WebApi
++  混合都得安装 
++  Mvc可以在 Global.cs 全局配置 FluentValidation 模型验证为默认的 ASP.NET MVC 模型验证 MVC下载 
 
-+ 混合都得安装 
-+  Mvc 可以在 Global.cs 全局配置 FluentValidation 模型验证为默认的 ASP.NET MVC 模型验证 MVC下载  Install-Package FluentValidation.Mvc5 
+
+``` bash
+    Install-Package FluentValidation.Mvc5 
     FluentValidationModelValidatorProvider.Configure(); 
+```
 
-+ Mvc 中添加类继承抽象类：
-+  public abstract class BaseValidator<TModel> : AbstractValidator<TModel> where TModel : class
++  Mvc 中添加类继承抽象类：
+``` bash
+   public abstract class BaseValidator<TModel> : AbstractValidator<TModel> where TModel : class
     {
     }
+```
 + 然后创建ProductViewModel  ProductValidator继承抽象泛型 
 + 不想改动原来实体的可做继承扩展 也可加注解的校验
 
-``
+``` bash
   [Validator(typeof(ProductValidator))] // 添加上之后就可以对标记的model进行校验了
     public class ProductViewModel
     {
@@ -45,9 +52,10 @@
         }
     }
 
-	``
+```
++  下面是Action 错误处理  ModelState.IsValid 会主动跳进校验规则校验:
 
-	+ 下面是Action 错误处理  ModelState.IsValid 会主动跳进校验规则校验
+``` bash
 	   public ActionResult Create([System.Web.Http.FromBody]CustomProduct product)
         {
             //CustomerValidator validator = new CustomerValidator();
@@ -64,9 +72,11 @@
             }
             return View(product);
         }
-	+ WebAPI写法跟上面差不多
+	
+```
++  WebAPI写法跟上面差不多:
 
-	``
+``` bash
 	   public IHttpActionResult Post([FromBody]CustomProduct model)
         {
             if (!ModelState.IsValid) // 主动走RuleFor规则校验 这句话主动调用！！！！！
@@ -75,11 +85,11 @@
             }
             return Ok(model);
         }
-	
-	``
-	+  以上是会返回json错误 信息可使用ViewBag进行接收前端处理 
-	+   下面是官方的写法：
-	``
+```
++  以上是会返回json错误 信息可使用ViewBag进行接收前端处理 
++   下面是官方的写法：
+
+```  bash
 		public ActionResult Create() {
 			return View();
 		}
@@ -95,11 +105,11 @@
 			return RedirectToAction("Index");
  
 		}
-	``
+```
 
-	+ 官方的前端验证 
++ 官方的前端验证 :
 
-	``
+``` bash
 	@Html.ValidationSummary()
  
 	@using (Html.BeginForm()) {
@@ -116,12 +126,12 @@
 		<input type="submit" value="submit" />
 	}
 
-``
+```
 
 + 但是页面过多就得每个Action都得去加 !ModelState.IsValid 验证判断 简单做法就是 使用ActionFilter拦截器 全局添加处理
 + 错误的方法 替换!ModelState.IsValid 判断处理方法 
 + 代码如下：
-``
+``` bash
    public class ValidateModelStateFilter : ActionFilterAttribute
     {
 	  // 重写Filter方法Action 拦截校验  然后在Action上座添加校验
@@ -152,6 +162,8 @@
         }
 	}
 
-	``
-	+ 然后在Action或者 APi 接口加上 注解拦截器 [ValidateModelStateFilter]
-	+ 此拦截器可在类路由器加或者Action方法api方法加 具体看需求 一般添加 新增和修改添加就可以了
+```
++ 然后在Action或者 APi 接口加上 注解拦截器 [ValidateModelStateFilter]
++ 此拦截器可在类路由器加或者Action方法api方法加 具体看需求 一般添加 新增和修改添加就可以了
+
+
