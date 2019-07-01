@@ -35,6 +35,7 @@ namespace WebApplication4.Controllers
                 var response = new HttpResponseMessage();
                 response.Content = new StringContent(string.Join("\n", errors));
                 response.StatusCode = HttpStatusCode.BadRequest;
+
                 throw new System.Web.Http.HttpResponseException(response);
             }
             return View(product);

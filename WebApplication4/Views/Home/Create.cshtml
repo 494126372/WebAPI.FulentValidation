@@ -5,7 +5,7 @@
 }
 
 <h1>Create</h1> 错误：
-@ViewBag.err  
+@ViewBag.err
 <h4>Book</h4>
 <hr />
 <div class="row">
@@ -14,26 +14,26 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
+                <input asp-for="Name" id="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Code" class="control-label"></label>
-                <input asp-for="Code" class="form-control" />
+                <input asp-for="Code" id="Code" class="form-control" />
                 <span asp-validation-for="Code" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
+                <input asp-for="Price" id="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Tel" class="control-label"></label>
-                <input asp-for="Tel" class="form-control" />
+                <input asp-for="Tel" id="Tel" class="form-control" />
                 <span asp-validation-for="Tel" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="button" value="Create" onclick="subform()" class="btn btn-primary" />
             </div>
         </form>
     </div>
@@ -42,4 +42,20 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+<script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript">
+
+    function subform() {
+        var model = {}
+        model.Name =$("#Name").val()
+        model.Code = $("#Code").val()
+        model.Price = $("#Price").val()
+        model.Tel = $("#Tel").val()
+        $.post('Create', model, function (d) {
+
+            console.log(d);
+        });
+        
+    }
+</script>
 
